@@ -1,0 +1,307 @@
+.sub-nav-sticky-container {
+  z-index: 3;
+  border-bottom: 1px solid #e1e4e8;
+  position: sticky;
+  top: 0;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+}
+.sub-nav-sticky-container .xl-responsive {
+  width: 100%;
+  max-width: 1216px;
+  display: flex;
+  justify-content: center;
+}
+.sub-nav-sticky-container .sticky-profile-image-holder {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  transition: 0.4s ease;
+  opacity: 0;
+}
+.sub-nav-sticky-container .sticky-profile-image-holder img {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+.sub-nav-sticky-container .sticky-profile-image-holder .username-text {
+  color: #24292e;
+}
+.sub-nav {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  font-size: 0;
+  overflow-x: auto;
+}
+.sub-nav a {
+  height: 30px;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-bottom: 2px solid #fff;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #24292e;
+  text-decoration: none;
+  transition: 0.4s ease;
+  margin: 0;
+  gap: 5px;
+}
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1px;
+  flex-direction: column;
+}
+.content-container .content-body {
+  display: flex;
+  width: 100%;
+  max-width: 1216px;
+  justify-content: center;
+}
+.profile-area {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  flex-direction: column;
+  top: -30px;
+}
+.profile-area .img-name-area {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: max-content;
+  position: relative;
+}
+.profile-area .img-name-area .img-area {
+  display: inline-flex;
+  height: max-content;
+  margin: 0;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+.profile-area .img-name-area .image-holder {
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.profile-area .img-name-area img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  z-index: 12;
+  position: absolute;
+  margin-bottom: 50px;
+  top: 0;
+  left: 0;
+}
+.profile-area .img-name-area .img-area .user-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 2em;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  bottom: 32px;
+  left: 100%;
+  margin-left: -50px;
+  z-index: 12;
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  box-shadow: 0 1px 0 rgb(27 31 35 / 4%);
+}
+.profile-area .img-name-area .name-area h3 p.fullname-text {
+  font-size: 26px;
+  color: #24292e;
+}
+.profile-area .img-name-area .name-area h3 p.username-text {
+  font-size: 20px;
+  font-weight: 400;
+  color: #586069;
+}
+.profile-area .img-name-area .name-area h3 p {
+  margin: 0;
+  padding: 0;
+}
+.profile-area .network-info-area {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  line-height: 2;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.profile-area .bio-area {
+  margin-bottom: 16px;
+}
+
+.repo-area {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.repo-filter-container {
+  display: flex;
+  border-bottom: 1px solid #e1e4e8;
+  justify-content: space-between;
+  align-items: center;
+}
+.repo-filter-container .search-input-holder {
+  flex: auto;
+  margin-right: 16px;
+}
+.repo-filter-container .search-input-holder,
+.repo-filter-container .buttons-holder {
+  display: flex;
+  align-items: center;
+}
+.repo-filter-container .search-input-holder input {
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgb(225 228 232 / 20%);
+  padding: 5px 12px;
+  color: #24292e;
+  line-height: 20px;
+  min-width: 170px;
+}
+
+.repo-filter-container .buttons-holder .button:first-child {
+  margin-right: 8px;
+}
+.repo-filter-container .buttons-holder .button {
+  display: flex;
+  align-items: center;
+}
+.repo-filter-container .buttons-holder .button .category {
+  font-weight: 400;
+  opacity: 0.75;
+  margin-right: 4px;
+}
+.repo-filter-container .buttons-holder .button .dropdown-icon {
+  border-top-color: #24292e;
+  margin-left: 8px;
+  position: relative;
+  top: 2px;
+}
+.dropdown-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: "";
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.repositories-list {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.repositories-list .repository-main {
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: center;
+}
+
+.repositories-list .repository-main h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 4px;
+}
+.repositories-list .repository-main p.description {
+  padding-right: 24px;
+  margin: 0;
+  margin-bottom: 8px;
+  color: #586069;
+  font-size: 14px;
+  word-break: break-word;
+}
+.repositories-list .repository-main .info {
+  margin: 0;
+  margin-top: 12px;
+  padding: 0;
+}
+.repositories-list .repository-main .info .info-item {
+  margin-right: 16px;
+  font-size: 12px;
+  color: #586069;
+}
+.repositories-list .repository-main .info .info-item {
+  margin-right: 16px;
+  font-size: 12px;
+  color: #586069;
+}
+.repositories-list .repository-main h3 a {
+  color: #0366d6;
+  text-decoration: none;
+}
+.profile-area .network-info-area {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  line-height: 2;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.profile-area .contact-area ul.contact-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: 14px;
+  color: #24292e;
+  font-weight: 400;
+}
+
+.profile-area .contact-area ul.contact-list li {
+  padding-top: 4px;
+}
+.profile-area .contact-area ul.contact-list li svg {
+  width: 16px;
+  height: 16px;
+  fill: #6a737d;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+.profile-area .network-info-area .info-item:first-child {
+  margin-left: 0;
+}
+
+.profile-area .network-info-area .info-item {
+  display: inline-block;
+  color: #586069;
+  line-height: 2;
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.padding-vertical-md {
+  padding: 24px 0;
+}
