@@ -246,7 +246,8 @@
   margin: 0;
   margin-top: 12px;
   padding: 0;
-  display: flex;gap: 5;
+  display: flex;
+  gap: 5;
 }
 .repositories-list .repository-main .info .info-item {
   font-size: 13px;
@@ -305,8 +306,19 @@
 .padding-vertical-md {
   padding: 24px 0;
 }
-.language-color{
-  border-radius: 100%;
-  background: rgb(0, 173, 216);
-  width: 10px;height: 10pt;
+.language-info {
+  display: flex;
+  gap: 5px;
+}
+.language-color {
+  border-radius: 50%;
+  background: rgb(206, 180, 31);
+  width: 10px;
+  height: 10px;
+}
+.count-badge{
+  font-size: 12px;
+  background-color: rgb(223, 215, 215);
+  border-radius: 45%;
+  padding-top: 3px;padding-bottom:5px;padding-left: 6px;padding-right: 6px;
 }

@@ -4,11 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile, fetchRepo, userSelector } from "../slices/user";
 
 const Body = () => {
-  const { profile } = useSelector(userSelector);
-  const { repo } = useSelector((state) => state.profile);
+  const { profile, loading, hasErrors, repo } = useSelector(userSelector);
   const dispatch = useDispatch();
   const { user } = useAuth0();
-  console.log(repo, profile);
   const numberPattern = /\d+/g;
 
   useEffect(() => {
@@ -17,6 +15,65 @@ const Body = () => {
     dispatch(fetchRepo(user.nickname));
   }, [dispatch]);
 
+  function generateHumanDate(dateString) {
+    let today = new Date();
+    let date = new Date(dateString);
+    let diffSeconds = (today.getTime() - date.getTime()) / 1000;
+    if (diffSeconds < 60) {
+      return ` a few seconds ago`;
+    }
+
+    let diffMinutes = Math.round(
+      (today.getTime() - date.getTime()) / (1000 * 60)
+    );
+    if (diffMinutes === 1) {
+      return diffMinutes + " minute ago";
+    }
+    if (diffMinutes < 60) {
+      return diffMinutes + " minutes ago";
+    }
+
+    let diffHours = Math.round(
+      (today.getTime() - date.getTime()) / (1000 * 3600)
+    );
+    if (diffHours === 1) {
+      return diffHours + " hour ago";
+    }
+    if (diffHours <= 24) {
+      return diffHours + " hours ago";
+    }
+
+    let diffDays = Math.round(
+      (today.getTime() - date.getTime()) / (1000 * 3600 * 24)
+    );
+    if (diffDays === 1) {
+      return diffDays + " day ago";
+    }
+    if (diffDays <= 8) {
+      return diffDays + " days ago";
+    }
+
+    if (diffDays < 365) {
+      return (
+        "on " +
+        date.toLocaleString("default", { month: "short" }) +
+        " " +
+        date.getDate()
+      );
+    }
+
+    let diffYears = Math.round(
+      (today.getTime() - date.getTime()) / (1000 * 3600 * 24 * 365)
+    );
+    if (diffYears === 1) {
+      return diffYears + " year ago";
+    }
+
+    return diffYears + " years ago";
+  }
+
+  if (loading) return <p>Loading ...</p>;
+  if (hasErrors) return <p>Cannot display profile...</p>;
   return (
     <div className="content-container padding-horizontal-lg">
       <div className="content-body">
@@ -48,7 +105,7 @@ const Body = () => {
             <div className="width-100 width-sm-75 name-area">
               <h3 id="spy-profile-view">
                 <p className="fullname-text">{profile.name}</p>
-                <p className="username-text">{}</p>
+                <p className="username-text">{profile.login}</p>
               </h3>
             </div>
           </div>
@@ -61,8 +118,8 @@ const Body = () => {
           <div className="width-100 edit-profile-area">
             <button className="button width-100">Edit Profile</button>
           </div>
-          <div class="width-100 network-info-area">
-            <span class="info-item">
+          <div className="width-100 network-info-area">
+            <span className="info-item">
               <svg
                 height="16"
                 viewBox="0 0 16 16"
@@ -71,7 +128,7 @@ const Body = () => {
                 aria-hidden="true"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"
                 ></path>
               </svg>
@@ -79,26 +136,9 @@ const Body = () => {
               followers
             </span>
             ·
-            <span class="info-item">
+            <span className="info-item">
               <strong id="following-count">{profile.following}</strong>
               following
-            </span>
-            ·
-            <span class="info-item">
-              <svg
-                class="octicon octicon-star text-gray-light"
-                height="16"
-                viewBox="0 0 16 16"
-                version="1.1"
-                width="16"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"
-                ></path>
-              </svg>
-              <strong id="starred-repositories-count">10</strong>
             </span>
           </div>
           <div className="width-100 contact-area">
@@ -214,14 +254,18 @@ const Body = () => {
                   </h3>
                   <p className="description">{repo.description} </p>
                   <div className="info">
-                    <span className="info-item">
-                      <span
-                        className="language-color"
-                      ></span>
-                      {repo.language}
-                    </span>
+                    {repo.language === null ? (
+                      ""
+                    ) : (
+                      <span className="info-item  language-info">
+                        <span className="language-color"></span>
+                        {repo.language}
+                      </span>
+                    )}
 
-                    {repo.stargazers_count <= 0 ? '' : (
+                    {repo.stargazers_count <= 0 ? (
+                      ""
+                    ) : (
                       <span className="info-item">
                         <a href="https://github.com/">
                           <svg
@@ -241,12 +285,25 @@ const Body = () => {
                       </span>
                     )}
 
-                    {repo.forks_count <= 0 ? '': (
+                    {repo.forks_count <= 0 ? (
+                      ""
+                    ) : (
                       <span className="info-item">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 448 512"
+                          width="16"
+                          height="16"
+                          aria-hidden="true"
+                        >
+                          <path d="M160 80C160 112.8 140.3 140.1 112 153.3V192C112 209.7 126.3 224 144 224H304C321.7 224 336 209.7 336 192V153.3C307.7 140.1 288 112.8 288 80C288 35.82 323.8 0 368 0C412.2 0 448 35.82 448 80C448 112.8 428.3 140.1 400 153.3V192C400 245 357 288 304 288H256V358.7C284.3 371 304 399.2 304 432C304 476.2 268.2 512 224 512C179.8 512 144 476.2 144 432C144 399.2 163.7 371 192 358.7V288H144C90.98 288 48 245 48 192V153.3C19.75 140.1 0 112.8 0 80C0 35.82 35.82 0 80 0C124.2 0 160 35.82 160 80V80zM80 104C93.25 104 104 93.25 104 80C104 66.75 93.25 56 80 56C66.75 56 56 66.75 56 80C56 93.25 66.75 104 80 104zM368 104C381.3 104 392 93.25 392 80C392 66.75 381.3 56 368 56C354.7 56 344 66.75 344 80C344 93.25 354.7 104 368 104zM224 408C210.7 408 200 418.7 200 432C200 445.3 210.7 456 224 456C237.3 456 248 445.3 248 432C248 418.7 237.3 408 224 408z" />
+                        </svg>
                         <a href="https://github.com/">{repo.forks_count}</a>{" "}
                       </span>
                     )}
-                    <span className="info-item">Updated 2 years ago</span>
+                    <span className="info-item">
+                      Updated {generateHumanDate(repo.updated_at)}
+                    </span>
                   </div>
                 </div>
                 <div className="width-25 star-button-holder">

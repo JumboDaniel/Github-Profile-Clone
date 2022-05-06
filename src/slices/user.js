@@ -47,7 +47,6 @@ const profileSlice = createSlice({
       try {
         const response = await fetch(`https://api.github.com/user/${arg}`)
         const data = await response.json()
-        console.log(arg)
         dispatch(getUserSuccess(data))
       } catch (error) {
         dispatch(getUserFailure())
@@ -61,8 +60,7 @@ const profileSlice = createSlice({
       try {
         const response = await fetch(`https://api.github.com/users/${arg}/repos`)
         const data = await response.json()
-        console.log(arg)
-        dispatch(getRepo(data))
+        dispatch(getRepo(data.slice(0,20)))
       } catch (error) {
         console.log(error)
       }
