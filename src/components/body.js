@@ -2,18 +2,17 @@ import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile, fetchRepo, userSelector } from "../slices/user";
-
+import {FallingLines} from'react-loader-spinner'
 const Body = () => {
   const { profile, loading, hasErrors, repo } = useSelector(userSelector);
   const dispatch = useDispatch();
   const { user } = useAuth0();
-  const numberPattern = /\d+/g;
 
   useEffect(() => {
-    const userKey = user.sub.match(numberPattern);
+    const userKey = user.sub.match(/\d+/g);
     dispatch(fetchProfile(userKey));
     dispatch(fetchRepo(user.nickname));
-  }, [dispatch]);
+  }, [dispatch, user.sub, user.nickname]);
 
   function generateHumanDate(dateString) {
     let today = new Date();
@@ -72,7 +71,7 @@ const Body = () => {
     return diffYears + " years ago";
   }
 
-  if (loading) return <p>Loading ...</p>;
+  if (loading) return <p className="loader"><FallingLines width="110" color="#c8553d" /></p>;
   if (hasErrors) return <p>Cannot display profile...</p>;
   return (
     <div className="content-container padding-horizontal-lg">

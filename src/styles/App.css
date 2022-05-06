@@ -316,9 +316,19 @@
   width: 10px;
   height: 10px;
 }
-.count-badge{
+.count-badge {
   font-size: 12px;
   background-color: rgb(223, 215, 215);
   border-radius: 45%;
-  padding-top: 3px;padding-bottom:5px;padding-left: 6px;padding-right: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.loader {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
