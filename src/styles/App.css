@@ -246,10 +246,10 @@
   margin: 0;
   margin-top: 12px;
   padding: 0;
+  display: flex;gap: 5;
 }
 .repositories-list .repository-main .info .info-item {
-  margin-right: 16px;
-  font-size: 12px;
+  font-size: 13px;
   color: #586069;
 }
 .repositories-list .repository-main .info .info-item {
@@ -304,4 +304,9 @@
 
 .padding-vertical-md {
   padding: 24px 0;
+}
+.language-color{
+  border-radius: 100%;
+  background: rgb(0, 173, 216);
+  width: 10px;height: 10pt;
 }

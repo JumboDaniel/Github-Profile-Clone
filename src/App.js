@@ -1,11 +1,15 @@
 import "./styles/App.css";
-import Header from "./components/header";
-import Body from "./components/body";
+import LoginButton from "./components/login";
+import { Routes, Route} from "react-router-dom";
+import Profile from "./components/profile";
+
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Body/>
+      <Routes>
+      <Route path="/" element={<LoginButton/>} />
+      <Route path="revival" element={<Profile/>} />
+      </Routes>
     </div>
   );
 }
